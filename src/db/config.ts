@@ -1,3 +1,3 @@
 export const config = {
-    connectionString: process.env.DATABASE_CONNECTION_STRING,
+    connectionString: process.env.DATABASE_CONNECTION_STRING!,
 }

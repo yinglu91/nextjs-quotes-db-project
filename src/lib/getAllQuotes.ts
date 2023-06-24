@@ -6,7 +6,7 @@ import { quotes, authors, categories } from "@/db/schema";
 
 export default async function getAllQuotes(): Promise<Quote[]> {
   const queryClient = postgres(
-    config.connectionString!
+    config.connectionString
   );
 
   const db: PostgresJsDatabase = drizzle(queryClient);
