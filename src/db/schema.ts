@@ -28,10 +28,7 @@ export type Authors = InferModel<typeof authors>;
 export type Categories = InferModel<typeof categories>;
 export type Quotes = InferModel<typeof quotes>;
 
-// const pool = new Pool({
-//     connectionString: 'postgres://user:password@host:port/db',
-//   });
-
+// connectionString: 'postgres://user:password@host:port/db'
 const pool = new Pool({
   connectionString: process.env.DATABASE_CONNECTION_STRING,
 });
@@ -39,3 +36,40 @@ const pool = new Pool({
 export const db = drizzle(pool);
 
 // https://www.npmjs.com/package/drizzle-orm
+
+/*
+CREATE DATABASE quotesdb;
+
+CREATE TABLE authors(
+	id serial PRIMARY KEY,
+	author VARCHAR ( 50 ) UNIQUE NOT NULL
+);
+
+INSERT INTO authors(author)
+VALUES('Mark Twain');
+
+CREATE TABLE categories (
+	id serial PRIMARY KEY,
+	category VARCHAR ( 50 ) UNIQUE NOT NULL
+);
+
+INSERT INTO categories(category)
+VALUES('Death');
+
+CREATE TABLE quotes (
+	id serial PRIMARY KEY,
+	quote VARCHAR ( 255 ) UNIQUE NOT NULL,
+	author_id int,
+	category_id int,
+	
+	foreign key(author_id) references authors(id),
+    foreign key(category_id) references categories(id)
+);
+
+INSERT INTO quotes(author_id, category_id, quote)
+VALUES(1, 1,
+'Do the thing you fear most and the death of fear is certain.');
+
+commit;
+
+*/
