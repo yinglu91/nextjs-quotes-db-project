@@ -1,7 +1,4 @@
-import { eq } from 'drizzle-orm';
-import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import postgres from 'postgres';
-import { quotes, authors, categories } from '@/db/schema';
+import getAllQuotes from './getAllQuotes';
 
 const prevQuoteObj = {
   prev: 1,
@@ -11,31 +8,17 @@ const prevQuoteObj = {
 };
 
 const getRandomQuote = async (): Promise<Quote> => {
-  // for query purposes
-  const queryClient = postgres(
-    'postgres://postgres:postgres@localhost:5432/quotesdb'
-  );
-  const db: PostgresJsDatabase = drizzle(queryClient);
-
-  const results: Quote[] = await db
-    .select({
-      quote: quotes.quote,
-      author: authors.author,
-      category: categories.category,
-    })
-    .from(quotes)
-    .innerJoin(authors, eq(quotes.authorId, authors.id))
-    .innerJoin(categories, eq(quotes.categoryId, categories.id));
+  const quotes = await getAllQuotes();
 
   let randomIndex = prevQuoteObj.prev;
 
   while (randomIndex === prevQuoteObj.prev) {
-    randomIndex = Math.floor(Math.random() * results.length);
+    randomIndex = Math.floor(Math.random() * quotes.length);
   }
 
   prevQuoteObj.setPrev(randomIndex);
 
-  return results[randomIndex];
+  return quotes[randomIndex];
 };
 
 export default getRandomQuote;

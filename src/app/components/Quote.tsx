@@ -20,7 +20,8 @@ import { useState } from 'react';
 interface Porps {
   randomQuote: Quote;
 }
-export default function QuoteComponent({ randomQuote }: Porps) {
+
+const QuoteComponent = ({ randomQuote }: Porps) => {
   const { quote, author, category } = randomQuote;
 
   const router = useRouter();
@@ -66,3 +67,5 @@ export default function QuoteComponent({ randomQuote }: Porps) {
     </section>
   );
 }
+
+export default QuoteComponent

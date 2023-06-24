@@ -5,10 +5,10 @@ import postgres from "postgres";
 import { quotes, authors, categories } from "@/db/schema";
 
 export default async function getAllQuotes(): Promise<Quote[]> {
-  // for query purposes
   const queryClient = postgres(
-    "postgres://postgres:postgres@localhost:5432/quotesdb"
+    config.connectionString!
   );
+
   const db: PostgresJsDatabase = drizzle(queryClient);
   const results: Quote[] = await db
     .select({
