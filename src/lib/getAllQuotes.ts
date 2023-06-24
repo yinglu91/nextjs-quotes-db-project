@@ -1,5 +1,6 @@
 import { eq } from 'drizzle-orm';
-import { quotes, authors, categories, db } from '@/db/schema';
+import { quotes, authors, categories } from '@/db/schema';
+import { db } from '@/db/drizzle-db'
 
 export default async function getAllQuotes(): Promise<Quote[]> {
   const results: Quote[] = await db

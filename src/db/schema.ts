@@ -1,7 +1,5 @@
-import { Pool } from 'pg';
 import { InferModel } from 'drizzle-orm';
 import { pgTable, serial, integer, varchar } from 'drizzle-orm/pg-core';
-import { drizzle } from 'drizzle-orm/node-postgres';
 
 export const authors = pgTable('authors', {
   id: serial('id').primaryKey(),
@@ -27,13 +25,6 @@ export const quotes = pgTable('quotes', {
 export type Authors = InferModel<typeof authors>;
 export type Categories = InferModel<typeof categories>;
 export type Quotes = InferModel<typeof quotes>;
-
-// connectionString: 'postgres://user:password@host:port/db'
-const pool = new Pool({
-  connectionString: process.env.DATABASE_CONNECTION_STRING,
-});
-
-export const db = drizzle(pool);
 
 // https://www.npmjs.com/package/drizzle-orm
 
